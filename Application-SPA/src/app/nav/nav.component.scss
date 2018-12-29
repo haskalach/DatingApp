@@ -1,0 +1,13 @@
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  &>fa-icon {
+    margin-right: 3px;
+  }
+}
+
+.form-inline {
+  margin-left: auto;
+}
