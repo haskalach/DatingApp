@@ -11,9 +11,6 @@ namespace Application.API.Dtos {
         public DateTime LastActive { get; set; }
         public string city { get; set; }
         public string country { get; set; }
-        public string Introduction { get; set; }
-        public string LookingFor { get; set; }
-        public string Interests { get; set; }
         public string PhotoUrl { get; set; }
     }
 }
