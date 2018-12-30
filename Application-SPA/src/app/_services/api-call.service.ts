@@ -1,5 +1,9 @@
+import { AuthService } from './auth.service';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
+// import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +11,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApiCallService {
   httpHeader;
   httpHeaderFile;
-  baseUrl = 'http://localhost:5000/api/';
+  baseUrl = environment.apiUrl;
+  // jwtHelper = new JwtHelperService();
   constructor(public http: HttpClient) {
     this.init();
   }
 
   init() {
     this.httpHeader = new HttpHeaders({
-      'Content-Type': 'application/json'
-      // Authorization: 'Bearer ' + this.auth.getToken()
+      'Content-Type': 'application/json',
+      // Authorization: 'Bearer ' + this.getToken()
     });
     this.httpHeaderFile = new HttpHeaders({
       // Authorization: 'Bearer ' + this.auth.getToken()
@@ -65,4 +70,13 @@ export class ApiCallService {
       headers: this.httpHeaderFile
     });
   }
+  // getToken() {
+  //   const token = localStorage.getItem('token');
+  //   if (!this.jwtHelper.isTokenExpired(token)) {
+  //     return token;
+  //   } else {
+  //     localStorage.removeItem('token');
+  //     return null;
+  //   }
+  // }
 }
