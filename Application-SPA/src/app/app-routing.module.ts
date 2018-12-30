@@ -1,3 +1,5 @@
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-lis.resolver';
 import { MemberDetailedComponent } from './pages/member/member-detailed/member-detailed.component';
 import { MainLayoutComponent } from './_layout/main-layout/main-layout.component';
@@ -9,6 +11,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListsComponent } from './pages/lists/lists.component';
 import { MemberListComponent } from './pages/member/member-list/member-list.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberEditComponent } from './pages/member/member-edit/member-edit.component';
 
 const routes: Routes = [
   {
@@ -32,6 +35,12 @@ const routes: Routes = [
             path: 'members/:id',
             component: MemberDetailedComponent,
             resolve: { user: MemberDetailResolver }
+          },
+          {
+            path: 'member/edit',
+            component: MemberEditComponent,
+            resolve: { user: MemberEditResolver },
+            canDeactivate: [PreventUnsavedChanges]
           },
           {
             path: 'messages',

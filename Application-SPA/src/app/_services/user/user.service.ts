@@ -16,4 +16,7 @@ export class UserService {
   getUser(id: number): Observable<User> {
     return this.api.Get<User>(this.repo + id);
   }
+  updateUser(user: User): Observable<User> {
+    return this.api.Put<User>(this.repo, user);
+  }
 }

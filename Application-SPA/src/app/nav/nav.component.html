@@ -12,7 +12,7 @@
       Welcome {{authService.decodedToken.unique_name | titlecase}} <span class="caret"></span>
     </div>
     <ul *dropdownMenu class="dropdown-menu dropdown-menu-right mt-3" role="menu">
-      <li role="menuitem"><a class="dropdown-item" href="#">
+      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/member/edit']">
           <fa-icon [icon]="['fas', 'user']"></fa-icon>Edit Profile
         </a></li>
       <li class="divider dropdown-divider"></li>

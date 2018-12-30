@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.API.Data;
 using Application.API.Dtos;
@@ -30,6 +32,20 @@ namespace Application.API.Controllers {
             var user = await _repo.GetUser (id);
             var userToReturn = _mapper.Map<UserForDetailedDto> (user);
             return Ok (userToReturn);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser (UserForUpdateDto userForUpdateDto) {
+            // if (id != int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value)) {
+            //     return Unauthorized ();
+            // }
+            var userId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser (userId);
+            _mapper.Map (userForUpdateDto, userFromRepo);
+            if (await _repo.SaveAll ()) {
+                return NoContent ();
+            }
+            throw new Exception($"Updating user {userId} failed on save");
         }
     }
 }
