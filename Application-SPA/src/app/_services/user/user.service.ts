@@ -8,6 +8,7 @@ import { User } from 'src/app/_models/user';
 })
 export class UserService {
   repo = 'users/';
+  photoRepo = 'photos/';
   constructor(private api: ApiCallService) {}
 
   getUsers(): Observable<User[]> {
@@ -18,5 +19,11 @@ export class UserService {
   }
   updateUser(user: User): Observable<User> {
     return this.api.Put<User>(this.repo, user);
+  }
+  setMainPhoto(id: number) {
+    return this.api.Post(this.repo + this.photoRepo + id + '/setMain');
+  }
+  deletePhoto(id: number) {
+    return this.api.Delete(this.repo + this.photoRepo + id);
   }
 }

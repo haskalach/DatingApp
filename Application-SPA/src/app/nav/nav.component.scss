@@ -11,3 +11,15 @@
 .form-inline {
   margin-left: auto;
 }
+
+.top-panel-heading {
+  display: flex;
+  align-items: center;
+
+  & .user-img {
+    max-height: 50px;
+    border: 1px solid white;
+    display: inline;
+    margin-right: 4px;
+  }
+}

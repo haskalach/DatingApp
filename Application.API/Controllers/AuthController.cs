@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.API.Data;
 using Application.API.Dtos;
 using Application.API.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,9 @@ namespace Application.API.Controllers {
     public class AuthController : ControllerBase {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController (IAuthRepository repo, IConfiguration config) {
+        private readonly IMapper _mapper;
+        public AuthController (IAuthRepository repo, IConfiguration config, IMapper mapper) {
+            _mapper = mapper;
             _config = config;
             _repo = repo;
 
@@ -68,9 +71,12 @@ namespace Application.API.Controllers {
 
             var token = tokenHandler.CreateToken (tokenDescriptor);
 
-            return Ok (new {
-                token = tokenHandler.WriteToken (token)
-            });
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
+
+                return Ok (new {
+                    token = tokenHandler.WriteToken (token),
+                    user
+                });
 
         }
 

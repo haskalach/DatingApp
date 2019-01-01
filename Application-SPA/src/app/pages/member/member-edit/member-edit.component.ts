@@ -1,3 +1,4 @@
+import { AuthService } from './../../../_services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, HostListener } from '@angular/core';
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/_services/user/user.service';
 export class MemberEditComponent implements OnInit {
   user: User;
   userForm: FormGroup;
+  photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.userForm.dirty) {
@@ -22,10 +24,14 @@ export class MemberEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private alertify: AlertifyService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(p => {
+      this.photoUrl = p;
+    });
     this.userForm = new FormGroup({
       introduction: new FormControl(),
       lookingFor: new FormControl(),
@@ -51,5 +57,8 @@ export class MemberEditComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+  }
+  updateMainPhoto(event: string) {
+    this.user.photoUrl = event;
   }
 }

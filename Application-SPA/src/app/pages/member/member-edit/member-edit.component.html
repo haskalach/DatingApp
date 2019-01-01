@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.knowAs}}">
+        <img class="card-img-top img-thumbnail" src="{{photoUrl}}" alt="{{user.knowAs}}">
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -32,7 +32,8 @@
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn btn-success btn-block" form="editForm" type="submit" [disabled]=!userForm.dirty>Save Changes</button>
+          <button class="btn btn-success btn-block" form="editForm" type="submit" [disabled]=!userForm.dirty>Save
+            Changes</button>
         </div>
       </div>
     </div>
@@ -58,7 +59,7 @@
 
           </tab>
           <tab heading="Edit Photos">
-            <p>Photo edit</p>
+            <app-photo-editor [photos]="user.photos" (updateMainPhotoUrl)="updateMainPhoto($event)"></app-photo-editor>
           </tab>
         </tabset>
       </div>

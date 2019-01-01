@@ -7,7 +7,10 @@
     <li class="nav-item" [routerLinkActive]="'active'"><a class="nav-link" [routerLink]="['/messages']">Messages</a></li>
   </ul>
 
-  <div *ngIf="loggedIn()" class="dropdown" dropdown>
+  <div *ngIf="loggedIn()" class="dropdown top-panel-heading" dropdown>
+    <span>
+      <img class="user-img" src="{{photoUrl}}" alt="">
+    </span>
     <div dropdownToggle class=" dropdown-toggle text-light">
       Welcome {{authService.decodedToken.unique_name | titlecase}} <span class="caret"></span>
     </div>

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   loginForm: FormGroup;
-
+  photoUrl: string;
   constructor(
     public authService: AuthService,
     private alertify: AlertifyService,
@@ -19,6 +19,9 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.photoUrl.subscribe(p => {
+      this.photoUrl = p;
+    });
     this.loginForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -43,6 +46,9 @@ export class NavComponent implements OnInit {
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     this.alertify.message('logged out');
     this.loginForm.reset();
     this.router.navigate(['/home']);

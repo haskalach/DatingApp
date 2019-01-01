@@ -13,6 +13,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 library.add(fas, far);
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,8 @@ import { MemberListResolver } from './_resolvers/member-lis.resolver';
 import { MemberEditComponent } from './pages/member/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './pages/member/photo-editor/photo-editor.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -52,7 +55,8 @@ export function tokenGetter() {
     MainLayoutComponent,
     MemberCardComponent,
     MemberDetailedComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,7 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     NgxGalleryModule,
+    FileUploadModule,
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     JwtModule.forRoot({
