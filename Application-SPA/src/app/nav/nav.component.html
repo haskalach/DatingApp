@@ -9,7 +9,7 @@
 
   <div *ngIf="loggedIn()" class="dropdown top-panel-heading" dropdown>
     <span>
-      <img class="user-img" src="{{photoUrl}}" alt="">
+      <img class="user-img" src="{{photoUrl || '../../../../assets/images/user.png'}}" alt="">
     </span>
     <div dropdownToggle class=" dropdown-toggle text-light">
       Welcome {{authService.decodedToken.unique_name | titlecase}} <span class="caret"></span>

@@ -35,8 +35,8 @@ export class AuthService {
     );
   }
 
-  resgiter(model: any) {
-    return this.api.Post(this.repo + 'register', model);
+  resgiter(user: User) {
+    return this.api.Post(this.repo + 'register', user);
   }
 
   loggedIn() {

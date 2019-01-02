@@ -14,6 +14,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 library.add(fas, far);
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +40,6 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './pages/member/photo-editor/photo-editor.component';
 
-
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -59,6 +59,7 @@ export function tokenGetter() {
     PhotoEditorComponent
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
