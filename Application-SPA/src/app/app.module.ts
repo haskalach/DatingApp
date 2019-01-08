@@ -15,7 +15,9 @@ import { NgxGalleryModule } from 'ngx-gallery';
 library.add(fas, far);
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,6 +63,8 @@ export function tokenGetter() {
     TimeAgoPipe
   ],
   imports: [
+    ButtonsModule.forRoot(),
+    PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
