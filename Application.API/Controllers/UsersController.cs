@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.API.Data;
 using Application.API.Dtos;
 using Application.API.Helpers;
+using Application.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,5 +57,28 @@ namespace Application.API.Controllers {
             }
             throw new Exception ($"Updating user {userId} failed on save");
         }
+
+        [HttpPost ("like/{recipientId}")]
+        public async Task<IActionResult> LikeUser (int recipientId) {
+            var userId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser (userId);
+            var like = await _repo.GetLike (userId, recipientId);
+            if (like != null) {
+                return BadRequest ("You Already liked this user");
+            }
+            if (await _repo.GetUser (recipientId) == null) {
+                return NotFound ();
+            }
+            like = new Like {
+                LikerId = userId,
+                LikeeId = recipientId
+            };
+            _repo.Add<Like> (like);
+            if (await _repo.SaveAll ()) {
+                return Ok ();
+            }
+            return BadRequest ("Not Able to Like user");
+        }
+
     }
 }
