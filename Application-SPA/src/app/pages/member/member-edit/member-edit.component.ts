@@ -41,12 +41,12 @@ export class MemberEditComponent implements OnInit {
     });
     this.route.data.subscribe(data => {
       this.user = data['user'];
-      console.log(this.user);
+      // console.log(this.user);
     });
     this.userForm.patchValue(this.user);
   }
   updateUser() {
-    console.log(this.userForm);
+    // console.log(this.userForm);
     this.userService.updateUser(this.userForm.value).subscribe(
       success => {
         this.alertify.success('Updated Succesfully');

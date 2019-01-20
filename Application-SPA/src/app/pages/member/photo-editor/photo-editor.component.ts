@@ -100,6 +100,6 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   fileSelected(event) {
-    console.log({ event });
+    // console.log({ event });
   }
 }

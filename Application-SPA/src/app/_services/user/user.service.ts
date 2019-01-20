@@ -33,7 +33,7 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
     }
     if (userParams != null) {
-      console.log({ userParams });
+      // console.log({ userParams });
       params = params.append('minAge', userParams.minAge);
       params = params.append('maxAge', userParams.maxAge);
       params = params.append('gender', userParams.gender);
