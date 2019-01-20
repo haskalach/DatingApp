@@ -1,3 +1,4 @@
+import { Message } from './../../_models/message';
 import { Observable } from 'rxjs';
 import { ApiCallService } from './../api-call.service';
 import { Injectable } from '@angular/core';
@@ -74,5 +75,47 @@ export class UserService {
   }
   sendLike(recipientId: number) {
     return this.http.post(this.baseUrl + 'users/like/' + recipientId, {});
+  }
+
+  getMessages(page?, itemsPerPage?, messageContainer?) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<
+      Message[]
+    >();
+    let params = new HttpParams();
+    params = params.append('MessageContainer', messageContainer);
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http
+      .get<Message[]>(this.baseUrl + this.repo + '/messages', {
+        observe: 'response',
+        params
+      })
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') !== null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+          return paginatedResult;
+        })
+      );
+  }
+  getMessageThread(recipientId: number) {
+    return this.api.http.get<Message[]>(
+      this.baseUrl + this.repo + '/messages/thread/' + recipientId
+    );
+  }
+  sendMessage(message: Message) {
+    return this.http.post(this.baseUrl + this.repo + '/messages', message);
+  }
+  deleteMEssage(id: number) {
+    return this.http.post(this.baseUrl + this.repo + '/messages/' + id, {});
+  }
+  markAsRead(id: number) {
+    this.http.post(this.baseUrl + this.repo + '/messages/' + id + '/read', {}).subscribe();
   }
 }
