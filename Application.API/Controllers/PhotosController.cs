@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace Application.API.Controllers {
-    [Authorize]
     [Route ("api/users/photos")]
     [ApiController]
     public class PhotosController : ControllerBase {
